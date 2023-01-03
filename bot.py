@@ -37,7 +37,8 @@ async def setup():
     print("Setting up...")
 
 
-async def main():
+async def bot():
     await setup()
     await client.run('MTA1OTg4NjM3ODIyMzE2MTM4NA.GStMiN.FbPpxtCwK4PgOE423OPIZ8noyJwQnjKrTPyyC0')
-asyncio.run(main())
+    
+asyncio.run(bot())
