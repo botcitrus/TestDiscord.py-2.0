@@ -6,18 +6,18 @@ class Select(discord.ui.Select):
         options = [
             discord.SelectOption(label = "Blue", emoji = ":blue:", description = "Blue Test"),
             discord.SelectOption(label = "Red", emoji = ":red:", description = "Red Test"),
-            discord.SelectOption(label = "Green", emoji = ":green:", description = "Green Test")
+            discord.SelectOption(label = "Green", emoji = ":green:", description = "Green Test"),
         ]
         super().__init__(placeholder = "Выберите цвет:", max_values = 1, min_values = 1, options = options)
     async def callback(self, interaction: discord.Interaction):
         user = interaction.user
         guild = interaction.guild
         if self.values[0] == "Blue":
-            await interaction.response.send_message(f"Вы выбрали синий", ephemeral = True)
+            await interaction.response.send_message("Вы выбрали синий", ephemeral = True)
         elif self.values[0] == "Red":
-            await interaction.response.send_message(f"Вы выбрали красный", ephemeral = True)
+            await interaction.response.send_message("Вы выбрали красный", ephemeral = False)
         elif self.values[0] == "Green":
-            await interaction.response.send_message(f"Вы выбрали зелёный", ephemeral = True)
+            await interaction.response.send_message("Вы выбрали зелёный", ephemeral = False)
                 
 class SelectView(discord.ui.View):
     def __init__(self, *, timeout = 30):
@@ -30,7 +30,7 @@ class SelectMenu(commands.Cog):
       
     @commands.command()
     async def select(self, ctx):
-        await ctx.send("Pick Color", view = SelectView(), delete_after = 15)
+        await ctx.send("Pick Color", view = SelectView())
       
 async def setup(client):
     await client.add_cog(SelectMenu(client))
