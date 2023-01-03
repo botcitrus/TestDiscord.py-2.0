@@ -1,6 +1,5 @@
 import discord
 from discord.ext import commands
-from nextcord.ext import commands
 from pymongo import MongoClient
 from os import listdir as ld
 from collections.abc import Sequence
@@ -11,30 +10,26 @@ import asyncio
 import datetime
 import sys
 import re
-from discord_slash import SlashCommand
-from discord_slash.utils.manage_commands import create_option
 import traceback
 import random
 import contextlib
 import io
 import os
 
-intents = discord.Intents.all()
+intents = discord.Intents.default()
+intents.messages = True
+intents.members = True
 null_color=discord.Color.from_rgb(47,49,56)
 
-client = commands.Bot(command_prefix="!", intents = intents, fetch_offline_members=True)
-slash = SlashCommand(client, sync_commands = True, sync_on_cog_reload=True)
-
-client.load_extension("cogs.faceit")
-client.load_extension("cogs.lobby1")
+client = commands.Bot(command_prefix="!", intents = intents)
 
 @client.event
 async def on_ready():
-    while True:
-              await client.change_presence(activity=discord.Streaming(name=f'Cyber Faceit', url="https://www.twitch.tv/qrushcsgo"))
-              await asyncio.sleep(5)
-              await client.change_presence(activity=discord.Streaming(name=f'{len(client.users)} пользователей', url="https://www.twitch.tv/qrushcsgo"))
-              await asyncio.sleep(5)
+    print("Logged in as")
+    print(client.user.name)
+    print(client.user.id)
+    print("--------")
+    await client.change_presence(activity=discord.Streaming(name=f'Cyber Faceit', url="https://www.twitch.tv/qrushcsgo"))
 			
 @client.command()
 @commands.is_owner()
@@ -113,9 +108,4 @@ async def eval(ctx, *, ucode=None):
             color=discord.Color.red())
         await ctx.send(embed=emb)
 
-async def load_extensions():
-    for filename in os.listdir("./cogs"):
-        if filename.endswith(".py"):
-            await client.load_extension(f"cogs.{filename[:-3]}")
-
-client.run('MTAyODM2OTQ2MTUwNzUyNjY5Nw.GT0X4g.8fFXB9ez0mZQ8tliBcpYxG3gcYOw33YTowerVw')
+client.run('MTA1OTg4NjM3ODIyMzE2MTM4NA.GStMiN.FbPpxtCwK4PgOE423OPIZ8noyJwQnjKrTPyyC0')
