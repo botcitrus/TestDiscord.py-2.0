@@ -24,8 +24,7 @@ class SelectView(discord.ui.View):
         super().__init__(timeout = timeout)
         self.add_item(Select())
         
-        
-class SelectMenu(commands.cog):
+class SelectMenu(commands.Cog):
     def __init__(self, client):
         self.client = client
       
