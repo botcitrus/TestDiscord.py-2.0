@@ -17,7 +17,7 @@ import os
 
 intents = discord.Intents.default()
 intents.message_content = True
-client = commands.Client(intents = intents)
+client = commands.Bot(command_prefix = "!", intents = intents)
 
 @client.event
 async def on_ready():
@@ -39,6 +39,6 @@ async def setup():
 
 async def bot():
     await setup()
-    await client.run('MTA1OTg4NjM3ODIyMzE2MTM4NA.GStMiN.FbPpxtCwK4PgOE423OPIZ8noyJwQnjKrTPyyC0')
+    await client.start('MTA1OTg4NjM3ODIyMzE2MTM4NA.GStMiN.FbPpxtCwK4PgOE423OPIZ8noyJwQnjKrTPyyC0')
     
 asyncio.run(bot())
