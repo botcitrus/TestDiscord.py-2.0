@@ -34,7 +34,7 @@ class Faceit(commands.Cog):
     async def on_ready(self)
         print("Faceit cog loaded.")
 
-    @client.command()
+    @commands.command()
     async def facts(self, ctx, number):
         response = requests.get(f"http://numbersapi.com/{number}")
         embed = discord.Embed(title = "Information Number", description = response.text)
