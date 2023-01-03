@@ -31,6 +31,8 @@ async def on_ready():
 async def on_message(message):
     if message.author == client.user:
         return
+    if message == "What you name?":
+        await message.channel.send("My name is Cyber Faceit")
     await message.channel.send("Hello friend")
 
 async def setup():
