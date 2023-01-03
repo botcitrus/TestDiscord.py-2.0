@@ -9,16 +9,15 @@ class Select(discord.ui.Select):
             discord.SelectOption(label = "Green", emoji = ":green:", description = "Green Test")
         ]
         super().__init__(placeholder = "Выберите цвет:", max_values = 1, min_values = 1, options = options)
-        
-        async def callback(self, interaction: discord.Interaction):
-            user = interaction.user
-            guild = interaction.guild
-            if self.values[0] == "Blue":
-                await interaction.response.send_message(f"Вы выбрали Синий", ephemeral = True)
-            elif self.values[0] == "Red":
-                await interaction.response.send_message(f"Вы выбрали Красный", ephemeral = True)
-            elif self.values[0] == "Green":
-                await interaction.response.send_message(f"Вы выбрали Зелёный", ephemeral = True)
+    async def callback(self, interaction: discord.Interaction):
+        user = interaction.user
+        guild = interaction.guild
+        if self.values[0] == "Blue":
+            await interaction.response.send_message(f"Вы выбрали синий", ephemeral = True)
+        elif self.values[0] == "Red":
+            await interaction.response.send_message(f"Вы выбрали красный", ephemeral = True)
+        elif self.values[0] == "Green":
+            await interaction.response.send_message(f"Вы выбрали зелёный", ephemeral = True)
                 
 class SelectView(discord.ui.View):
     def __init__(self, *, timeout = 30):
@@ -27,7 +26,7 @@ class SelectView(discord.ui.View):
         
         
 class SelectMenu(commands.cog):
-    def __init__(self, client)
+    def __init__(self, client):
         self.client = client
       
     @commands.command()
