@@ -30,7 +30,7 @@ class SelectMenu(commands.cog):
         self.client = client
       
     @commands.command()
-    async def select(self):
+    async def select(self, ctx):
         await ctx.send("Pick Color", view = SelectView(), delete_after = 15)
       
 async def setup(client):
