@@ -41,12 +41,14 @@ async def on_message(message):
     if message.author == client.user:
         return
     await message.channel.send("Hello friend")
-
-async def setup():
-    print("Setting up...")
+    
+async def load():
+    for file in os.listdir("./cogs"):
+        if file.endswith(".py"):
+            await client.load_extension(f"cogs.{file[:-3]}")
 
 async def bot():
-    await setup()
+    await load()
     await client.start('MTA1OTg4NjM3ODIyMzE2MTM4NA.GStMiN.FbPpxtCwK4PgOE423OPIZ8noyJwQnjKrTPyyC0')
     
 asyncio.run(bot())
