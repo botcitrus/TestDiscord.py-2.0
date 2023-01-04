@@ -29,6 +29,14 @@ class Select(discord.ui.Select):
             await interaction.response.send_modal(SurveyModal())
             await interaction.response.send_message("Third One!", ephemeral=False)
             
+class Buttons(discord.ui.Button):
+    def __init__(self, *, timeout = 180):
+        super().__init__(timeout=timeout)
+        
+    @discord.ui.button(label = "Red", style = discord.ButtonStyle.red)
+    async def click(self, interaction: discord.Interaction, button:  discord.ui.Button):
+        await interaction.response.send_message("This is the first option from the entire list!")
+            
 class ModalView(discord.ui.View):
     def __init__(self, *, timeout = 180):
         super().__init__(timeout=timeout)
@@ -40,7 +48,7 @@ class Modal(commands.Cog):
       
     @commands.command()
     async def modal(self, ctx):
-        await ctx.send("заявка на адм", view = ModalView())
+        await ctx.send("заявка на адм", view = [Buttons(), ModalView()])
       
 async def setup(client):
     await client.add_cog(Modal(client))
