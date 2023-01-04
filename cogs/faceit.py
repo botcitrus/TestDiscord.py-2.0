@@ -33,7 +33,7 @@ class Faceit(commands.Cog):
 
     @app_commands.command(name = "number", description = "Факт о числе")
     async def number(self, interaction: discord.Interaction, number: int):
-       await interaction.response.send_message(number)
+        await interaction.response.send_message(number)
         
 async def setup(client):
     await client.add_cog(Faceit(client))
