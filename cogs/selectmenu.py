@@ -3,25 +3,18 @@ from discord.ext import commands
 
 class Select(discord.ui.Select):
     def __init__(self):
-        options = [
-            discord.SelectOption(label = "Blue", emoji = ":blue:", description = "Blue Test"),
-            discord.SelectOption(label = "Red", emoji = ":red:", description = "Red Test"),
-            discord.SelectOption(label = "Green", emoji = ":green:", description = "Green Test"),
-        ]
-        super().__init__(placeholder = "Выберите цвет:", max_values = 1, min_values = 1, options = options)
+        options=[
+            discord.SelectOption(label="Option 1",emoji="👌",description="This is option 1!"),
+            discord.SelectOption(label="Option 2",emoji="✨",description="This is option 2!"),
+            discord.SelectOption(label="Option 3",emoji="🎭",description="This is option 3!")
+            ]
+        super().__init__(placeholder="Select an option", max_values=1, min_values=1, options=options)
     async def callback(self, interaction: discord.Interaction):
-        user = interaction.user
-        guild = interaction.guild
-        if self.values[0] == "Blue":
-            await interaction.response.send_message("Вы выбрали синий", ephemeral = True)
-        elif self.values[0] == "Red":
-            await interaction.response.send_message("Вы выбрали красный", ephemeral = False)
-        elif self.values[0] == "Green":
-            await interaction.response.send_message("Вы выбрали зелёный", ephemeral = False)
-                
+        await interaction.response.send_message(content=f"Your choice is {self.values[0]}!", ephemeral=True)
+
 class SelectView(discord.ui.View):
-    def __init__(self, *, timeout = 30):
-        super().__init__(timeout = timeout)
+    def __init__(self, *, timeout = 180):
+        super().__init__(timeout=timeout)
         self.add_item(Select())
         
 class SelectMenu(commands.Cog):
