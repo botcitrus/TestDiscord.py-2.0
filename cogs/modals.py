@@ -1,7 +1,6 @@
 import discord
 from discord.ext import commands
 
-channel = client.get_channel('1060262034496815176')
 
 class StaffModal(discord.ui.Modal, title = "Заявка на пост стаффа!"):
     name = discord.ui.TextInput(label = "Имя?")
@@ -22,12 +21,15 @@ class AdmModal(discord.ui.Modal, title = "Заявка на пост админ�
         await interaction.user.send(f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе")
         
 class EveModal(discord.ui.Modal, title = "Заявка на пост ивентера!"):
+    def __init__(self, client):
+        self.client = client
     name = discord.ui.TextInput(label = "Имя?")
     age = discord.ui.TextInput(label = "Возвраст?")
     sentry = discord.ui.TextInput(label = "Часовой пояс от мск?")
     whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.paragraph)
     yourslf = discord.ui.TextInput(label = "Немного о себе", style = discord.TextStyle.paragraph)
     async def on_submit(self, interaction: discord.Interaction):
+        channel = self.client.get_channel('1060262034496815176')
         embed = discord.Embed(title = "Заявка на Eventer", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе")
         await channel.send(f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе")
         
