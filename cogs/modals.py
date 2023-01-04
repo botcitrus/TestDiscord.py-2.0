@@ -36,7 +36,7 @@ class Modal(commands.Cog):
         self.client = client
       
     @commands.command()
-    async def select(self, ctx):
+    async def modal(self, ctx):
         await ctx.send("Pick Color", view = SelectView())
       
 async def setup(client):
