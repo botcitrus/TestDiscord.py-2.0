@@ -29,7 +29,7 @@ class Select(discord.ui.Select):
             await interaction.response.send_modal(SurveyModal())
             await interaction.response.send_message("Third One!", ephemeral=False)
             
-class Buttons(discord.ui.Button):
+class Buttons(discord.ui.View):
     def __init__(self, *, timeout = 180):
         super().__init__(timeout=timeout)
         
