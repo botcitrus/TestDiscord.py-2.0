@@ -18,13 +18,14 @@ class Select(discord.ui.Select):
         super().__init__(placeholder="Select an option", max_values=1, min_values=1, options=options)
     async def callback(self, interaction: discord.Interaction):
         if self.values[0] == "Red":
+            await interaction.response.send_modal(SurveyModal())
             await interaction.response.edit_message(content = "This is the first option from the entire list!")
         elif self.values[0] == "Blue":
+            await interaction.response.send_modal(SurveyModal())
             await interaction.response.send_message("This is the second option from the list entire wooo!", ephemeral=False)
         elif self.values[0] == "Green":
+            await interaction.response.send_modal(SurveyModal())
             await interaction.response.send_message("Third One!", ephemeral=False)
-            
-        await interaction.response.send_modal(SurveyModal())
         
 class SelectView(discord.ui.View):
     def __init__(self, *, timeout = 180):
