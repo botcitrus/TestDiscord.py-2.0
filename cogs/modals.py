@@ -31,7 +31,7 @@ class EveModal(discord.ui.Modal, title = "Заявка на пост ивент�
         guild = interaction.guild
         channel = discord.utils.get(guild.text_channels, name = "заявки")
         embed = discord.Embed(title = "Заявка на Eventer", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
-        await channel.send(f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе")
+        await channel.send(embed = embed)
         
 class Select(discord.ui.Select):
     def __init__(self):
@@ -44,16 +44,13 @@ class Select(discord.ui.Select):
     async def callback(self, interaction: discord.Interaction):
         if self.values[0] == "Staff":
             await interaction.response.send_modal(StaffModal())
-            embed = discord.Embed(title = "STAFF", description = "Заявка на роль staff принята!")
-            await interaction.response.send_message(embed = embed, ephemeral = True)
+            await interaction.response.send_message("Заявка на роль eventer принята!", ephemeral = True)
         elif self.values[0] == "Administrator":
             await interaction.response.send_modal(AdmModal())
-            embed = discord.Embed(title = "ADMINISTRATOR", description = "Заявка на роль administrator принята!")
-            await interaction.response.send_message(embed = embed, ephemeral = True)
+            await interaction.response.send_message("Заявка на роль eventer принята!", ephemeral = True)
         elif self.values[0] == "Eventer":
             await interaction.response.send_modal(EveModal())
-            embed = discord.Embed(title = "EVENTER", description = "Заявка на роль eventer принята!")
-            await interaction.response.send_message(embed = embed, ephemeral = True)
+            await interaction.response.send_message("Заявка на роль eventer принята!", ephemeral = True)
             
 class Buttons(discord.ui.View):
     def __init__(self, *, timeout = 180):
