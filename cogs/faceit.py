@@ -24,22 +24,15 @@ base_color=0x8A2BE2
 null_color=discord.Color.from_rgb(47,49,56)
 
 class Faceit(commands.Cog):
-    def __init__(self, client: commands.Bot):
-        self.client = client
-        self.cluster = MongoClient("mongodb+srv://Setroom:CFLrxCSX0fzBIMlA@cluster0.l9fw9.mongodb.net/ecodb?retryWrites=true&w=majority")
-        self.collection = self.cluster.afraid.afraiduser
-        self.collgame = self.cluster.afraid.afraidgame
-	
+    def __init__(self, client):
 	
     @commands.Cog.listener()
     async def on_ready(self):
         print("Faceit cog loaded.")
 
-    @app_commands.command(name = "facts", description = "Факт о числе")
-    async def facts(self, interaction: discord.Interaction, number: int):
-        response = requests.get(f"http://numbersapi.com/{number}")
-        embed = discord.Embed(title = "Information Number", description = response.text)
-        await interaction.response.send_message(embed = embed)
+    @app_commands.command(name = "number", description = "Факт о числе")
+    async def number(self, interaction: discord.Interaction, number: int):
+        await interaction.response.send_message(number)
             
         
 async def setup(client):
