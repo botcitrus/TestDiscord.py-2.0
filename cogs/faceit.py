@@ -34,11 +34,6 @@ class Faceit(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print("Faceit cog loaded.")
-	
-    @commands.command()
-    async def sync(self, ctx) -> None:
-        fmt = await ctx.client.tree.sync(guild=ctx.guild)
-        await ctx.send(f"Synced {len(fmt)} commands")
 
     @app_commands.command(name = "facts", description = "Факт о числе")
     async def facts(self, interaction: discord.Interaction, number: int):
@@ -48,4 +43,4 @@ class Faceit(commands.Cog):
             
         
 async def setup(client):
-    await client.add_cog(Faceit(client))
+    await client.add_cog(Faceit(client), guilds = [discord.Object(id = 1028330500579938424)])
