@@ -43,4 +43,4 @@ class Faceit(commands.Cog):
             
         
 async def setup(client):
-    await client.add_cog(Faceit(client), guilds = [discord.Object(id = 1028330500579938424)])
+    await client.add_cog(Faceit(client))
