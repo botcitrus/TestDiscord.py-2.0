@@ -1,4 +1,5 @@
 import discord
+from discord import app_commands
 import asyncio
 from discord.ext import commands
 import json
@@ -23,7 +24,7 @@ base_color=0x8A2BE2
 null_color=discord.Color.from_rgb(47,49,56)
 
 class Faceit(commands.Cog):
-    def __init__(self, client):
+    def __init__(self, client: commands.Bot):
         self.client = client
         self.cluster = MongoClient("mongodb+srv://Setroom:CFLrxCSX0fzBIMlA@cluster0.l9fw9.mongodb.net/ecodb?retryWrites=true&w=majority")
         self.collection = self.cluster.afraid.afraiduser
@@ -33,12 +34,17 @@ class Faceit(commands.Cog):
     @commands.Cog.listener()
     async def on_ready(self):
         print("Faceit cog loaded.")
-
+	
     @commands.command()
-    async def facts(self, ctx, number):
+    async def sync(self, ctx) -> None:
+        fmt = await ctx.client.tree.sync(guild=ctx.guild)
+        await ctx.send(f"Synced {len(fmt)} commands")
+
+    @app_commands.command(name = "facts", description = "Факт о числе")
+    async def facts(self, interaction: discord.Interaction, number: int):
         response = requests.get(f"http://numbersapi.com/{number}")
         embed = discord.Embed(title = "Information Number", description = response.text)
-        await ctx.channel.send(embed = embed)
+        await interaction.response.send_message(embed = embed)
             
         
 async def setup(client):
