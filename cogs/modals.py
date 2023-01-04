@@ -1,7 +1,7 @@
 import discord
 from discord.ext import commands
 
-class SurveyModal(discord.ui.Modal, title = "Заявка на пост администратора!")
+class SurveyModal(discord.ui.Modal, title = "Заявка на пост администратора!"):
     name = discord.ui.TextInput(label = "Имя?")
     answer = discord.ui.TextInput(label = "Возвраст?")
     invite = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.paragraph)
