@@ -13,8 +13,8 @@ class SurveyModal(discord.ui.Modal, title = "Заявка на пост адми
         
 class ModalSend(discord.ui.Select):
     def __init__(self):
-    async def callback(self, interaction: discord.Interaction):
-        await interaction.response.send_message("Third One!", ephemeral=False)
+        async def callback(self, interaction: discord.Interaction):
+            await interaction.response.send_message("Third One!", ephemeral=False)
         
 class ModalView(discord.ui.View):
     def __init__(self, *, timeout = 180):
