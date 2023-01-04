@@ -34,7 +34,7 @@ class Buttons(discord.ui.View):
         super().__init__(timeout=timeout)
         
     @discord.ui.button(label = "Red", style = discord.ButtonStyle.red)
-    async def click(self, interaction: discord.Interaction, button:  discord.ui.Button):
+    async def click(self, interaction: discord.Interaction, button: discord.ui.Button):
         await interaction.response.send_message("This is the first option from the entire list!")
             
 class ModalView(discord.ui.View):
