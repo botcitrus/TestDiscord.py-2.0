@@ -25,12 +25,13 @@ null_color=discord.Color.from_rgb(47,49,56)
 
 class Faceit(commands.Cog):
     def __init__(self, client):
+        self.client = client
 	
-    #@commands.Cog.listener()
-    #async def on_ready(self):
-        #print("Faceit cog loaded.")
+    @commands.Cog.listener()
+    async def on_ready(self):
+        print("Faceit cog loaded.")
 
-    @commands.command(name = "number", description = "Факт о числе")
+    @app_commands.command(name = "number", description = "Факт о числе")
     async def number(self, interaction: discord.Interaction, number: int):
        await interaction.response.send_message(number)
         
