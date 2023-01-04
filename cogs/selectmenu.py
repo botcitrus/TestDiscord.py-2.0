@@ -4,9 +4,9 @@ from discord.ext import commands
 class Select(discord.ui.Select):
     def __init__(self):
         options=[
-            discord.SelectOption(label="Red",emoji=":red:",description="This is option 1!"),
-            discord.SelectOption(label="Blue",emoji=":blue:",description="This is option 2!"),
-            discord.SelectOption(label="Green",emoji=":green:",description="This is option 3!")
+            discord.SelectOption(label="Red", emoji="❤️", description="This is option 1!"),
+            discord.SelectOption(label="Blue", emoji="💙", description="This is option 2!"),
+            discord.SelectOption(label="Green", emoji="💚", description="This is option 3!")
             ]
         super().__init__(placeholder="Select an option", max_values=1, min_values=1, options=options)
     async def callback(self, interaction: discord.Interaction):
