@@ -9,7 +9,8 @@ class StaffModal(discord.ui.Modal, title = "Заявка на пост стаф�
     whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.paragraph)
     yourslf = discord.ui.TextInput(label = "Немного о себе", style = discord.TextStyle.paragraph)
     async def on_submit(self, interaction: discord.Interaction):
-        await interaction.user.send(f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе")
+        user = interaction.user
+        await user.response.send_message(f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
         
 class AdmModal(discord.ui.Modal, title = "Заявка на пост администрации!"):
     name = discord.ui.TextInput(label = "Имя?")
@@ -18,7 +19,7 @@ class AdmModal(discord.ui.Modal, title = "Заявка на пост админ�
     whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.paragraph)
     yourslf = discord.ui.TextInput(label = "Немного о себе", style = discord.TextStyle.paragraph)
     async def on_submit(self, interaction: discord.Interaction):
-        await interaction.user.send(f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе")
+        await interaction.user.send(f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
         
 class EveModal(discord.ui.Modal, title = "Заявка на пост ивентера!"):
     name = discord.ui.TextInput(label = "Имя?")
@@ -28,7 +29,7 @@ class EveModal(discord.ui.Modal, title = "Заявка на пост ивент�
     yourslf = discord.ui.TextInput(label = "Немного о себе", style = discord.TextStyle.paragraph)
     async def on_submit(self, interaction: discord.Interaction):
         channel = interaction.client.get_channel('1060262034496815176')
-        embed = discord.Embed(title = "Заявка на Eventer", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе")
+        embed = discord.Embed(title = "Заявка на Eventer", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
         await channel.send(f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе")
         
 class Select(discord.ui.Select):
