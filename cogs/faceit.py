@@ -30,9 +30,9 @@ class Faceit(commands.Cog):
     #async def on_ready(self):
         #print("Faceit cog loaded.")
 
-    @app_commands.command(name = "number", description = "Факт о числе")
-    async def number(self, interaction: discord.Interaction, number: int):
-        await interaction.response.send_message(number)
+	@app_commands.command(name = "number", description = "Факт о числе")
+	async def number(self, interaction: discord.Interaction, number: int):
+            await interaction.response.send_message(number)
             
         
 async def setup(client):
