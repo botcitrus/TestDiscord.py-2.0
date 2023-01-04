@@ -4,12 +4,11 @@ from discord.ext import commands
 class SurveyModal(discord.ui.Modal, title = "Заявка на пост администратора!"):
     name = discord.ui.TextInput(label = "Имя?")
     age = discord.ui.TextInput(label = "Возвраст?")
-    sentry = discord.ui.TextInput(label = "Возвраст?")
+    sentry = discord.ui.TextInput(label = "Часовой пояс от мск?")
     whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.paragraph)
     yourslf = discord.ui.TextInput(label = "Немного о себе", style = discord.TextStyle.paragraph)
     async def on_submit(self, interaction: discord.Interaction):
-        embed = discord.Embed(title = "Заявка на администратора!", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе")
-        await interaction.response.send_message(embed = embed)
+        await interaction.response.send_message(f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе")
         
 class Select(discord.ui.Select):
     def __init__(self):
