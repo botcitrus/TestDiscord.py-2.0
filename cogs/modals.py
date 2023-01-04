@@ -8,7 +8,7 @@ class SurveyModal(discord.ui.Modal, title = "Заявка на пост адми
     whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.paragraph)
     yourslf = discord.ui.TextInput(label = "Немного о себе", style = discord.TextStyle.paragraph)
     async def on_submit(self, interaction: discord.Interaction):
-        embed = discord.Embed(title = "Заявка на администратора!", description = f"Имя: {name}\nВозвраст: {age}\nЧасовой поис: {sentry}\nПочему именно вы: {whyou}\nНемного о себе")
+        embed = discord.Embed(title = "Заявка на администратора!", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе")
         await interaction.response.send_message(embed = embed)
         
 class Select(discord.ui.Select):
