@@ -48,7 +48,7 @@ class Modal(commands.Cog):
       
     @commands.command()
     async def modal(self, ctx):
-        await ctx.send("заявка на адм", view = [Buttons(), ModalView()])
+        await ctx.send("заявка на адм", view = Buttons())
       
 async def setup(client):
     await client.add_cog(Modal(client))
