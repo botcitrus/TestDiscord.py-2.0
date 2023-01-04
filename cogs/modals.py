@@ -10,7 +10,7 @@ class StaffModal(discord.ui.Modal, title = "Заявка на пост стаф�
     yourslf = discord.ui.TextInput(label = "Немного о себе", style = discord.TextStyle.paragraph)
     async def on_submit(self, interaction: discord.Interaction):
         user = interaction.user
-        await user.response.send_message(f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
+        await user.send(f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
         
 class AdmModal(discord.ui.Modal, title = "Заявка на пост администрации!"):
     name = discord.ui.TextInput(label = "Имя?")
@@ -28,7 +28,8 @@ class EveModal(discord.ui.Modal, title = "Заявка на пост ивент�
     whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.paragraph)
     yourslf = discord.ui.TextInput(label = "Немного о себе", style = discord.TextStyle.paragraph)
     async def on_submit(self, interaction: discord.Interaction):
-        channel = interaction.client.get_channel('1060262034496815176')
+        guild = interaction.guild
+        channel = discord.utils.get(guild.text_channels, name = "заявки")
         embed = discord.Embed(title = "Заявка на Eventer", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
         await channel.send(f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе")
         
