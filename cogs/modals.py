@@ -7,8 +7,9 @@ class Buttons(discord.ui.View):
         super().__init__(timeout=timeout)
         
     @discord.ui.button(label = "Принять", style = discord.ButtonStyle.green)
-    async def clicktru(self, interaction: discord.Interaction, button: discord.ui.Button):
-        button.disabled = True
+    async def clicktru(self, interaction: discord.Interaction, child: discord.ui.Button):
+        for child in self.children:
+            child.disabled = True
         guild = interaction.guild
         channel = discord.utils.get(guild.text_channels, name = "приняты")
         await channel.send(f"{interaction.user}, ваша заявка принята!")
@@ -23,13 +24,6 @@ class Buttons(discord.ui.View):
         await user.send(f"{user}, ваша заявка отклонена!")
         await interaction.response.edit_message(view = self)
         await interaction.response.send_message("Успешно", ephemeral = True)
-        
-    @discord.ui.button(label = "Удалить", style = discord.ButtonStyle.grey)
-    async def clickdelete(self, interaction: discord.Interaction, child: discord.ui.Button):
-        for child in self.children:
-            child.disabled = True
-        await interaction.response.send_message("Заявка удалена!", ephemeral = True)
-        await interaction.response.edit_message(view = self)
 
 class StaffModal(discord.ui.Modal, title = "Заявка на пост стаффа!"):
     name = discord.ui.TextInput(label = "Имя?", min_length = 2, max_length = 15)
