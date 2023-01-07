@@ -11,12 +11,14 @@ class Buttons(discord.ui.View):
         button.disabled = True
         channel = discord.utils.get(guild.text_channels, name = "приняты")
         await channel.send(f"{interaction.user}, ваша заявка принята!")
+        await interaction.response.send_message("Успешно", ephemeral = True)
         
     @discord.ui.button(label = "Отказать", style = discord.ButtonStyle.red)
     async def clickfalse(self, interaction: discord.Interaction, button: discord.ui.Button):
         button.disabled = True
         user = interaction.user
         await user.send(f"{user}, ваша заявка отклонена!")
+        await interaction.response.send_message("Успешно", ephemeral = True)
 
 class StaffModal(discord.ui.Modal, title = "Заявка на пост стаффа!"):
     name = discord.ui.TextInput(label = "Имя?", min_length = 2, max_length = 15)
