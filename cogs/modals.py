@@ -73,15 +73,16 @@ class Select(discord.ui.Select):
             ]
         super().__init__(placeholder="Выберите нужный пункт:", max_values = 1, min_values = 1, options = options)
     async def callback(self, interaction: discord.Interaction):
-        if self.values[0] == "Staff":
-            await interaction.response.send_modal(StaffModal())
-            await interaction.response.send_message("Заявка на роль eventer принята!", ephemeral = True)
-        elif self.values[0] == "Administrator":
-            await interaction.response.send_modal(AdmModal())
-            await interaction.response.send_message("Заявка на роль eventer принята!", ephemeral = True)
-        elif self.values[0] == "Eventer":
-            await interaction.response.send_modal(EveModal())
-            await interaction.response.send_message("Заявка на роль eventer принята!", ephemeral = True)
+        while True:
+            if self.values[0] == "Staff":
+                await interaction.response.send_modal(StaffModal())
+                await interaction.response.send_message("Заявка на роль eventer принята!", ephemeral = True)
+            elif self.values[0] == "Administrator":
+                await interaction.response.send_modal(AdmModal())
+                await interaction.response.send_message("Заявка на роль eventer принята!", ephemeral = True)
+            elif self.values[0] == "Eventer":
+                await interaction.response.send_modal(EveModal())
+                await interaction.response.send_message("Заявка на роль eventer принята!", ephemeral = True)
             
 class ModalView(discord.ui.View):
     def __init__(self, *, timeout = 180):
