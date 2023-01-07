@@ -71,7 +71,7 @@ class Select(discord.ui.Select):
             discord.SelectOption(label="Administrator", emoji="⚒", description="Заявка на роль администрации"),
             discord.SelectOption(label="Eventer", emoji="🔮", description="Заявка на роль ивентера")
             ]
-        super().__init__(placeholder="Выберите нужный пункт:", max_values = 1, min_values = 1, options = options)
+        super().__init__(placeholder="Выберите нужный пункт:", options = options) #max_values = 1, min_values = 1,
     async def callback(self, interaction: discord.Interaction):
         while True:
             if self.values[0] == "Staff":
