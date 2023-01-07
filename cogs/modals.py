@@ -7,14 +7,16 @@ class Buttons(discord.ui.View):
         super().__init__(timeout=timeout)
         
     @discord.ui.button(label = "Принять", style = discord.ButtonStyle.green)
-    async def click(self, interaction: discord.Interaction, button: discord.ui.Button):
+    async def clicktru(self, interaction: discord.Interaction, button: discord.ui.Button):
         button.disabled = True
-        await interaction.response.send_message("Ваша заявка принята!")
+        channel = discord.utils.get(guild.text_channels, name = "приняты")
+        await channel.send(f"{interaction.user}, ваша заявка принята!")
         
     @discord.ui.button(label = "Отказать", style = discord.ButtonStyle.red)
-    async def click(self, interaction: discord.Interaction, button: discord.ui.Button):
+    async def clickfalse(self, interaction: discord.Interaction, button: discord.ui.Button):
         button.disabled = True
-        await interaction.response.send_message("Ваша заявка отказана!")
+        user = interaction.user
+        await user.send(f"{user}, ваша заявка отклонена!")
 
 class StaffModal(discord.ui.Modal, title = "Заявка на пост стаффа!"):
     name = discord.ui.TextInput(label = "Имя?", min_length = 2, max_length = 15)
@@ -25,7 +27,6 @@ class StaffModal(discord.ui.Modal, title = "Заявка на пост стаф�
     async def on_submit(self, interaction: discord.Interaction):
         guild = interaction.guild
         user = interaction.user
-        view = Buttons()
         channel = discord.utils.get(guild.text_channels, name = "заявки")
         embed = discord.Embed(title = "Заявка на Staff", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
         await channel.send(embed = embed, view = view)
