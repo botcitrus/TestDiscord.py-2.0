@@ -27,6 +27,7 @@ class StaffModal(discord.ui.Modal, title = "Заявка на пост стаф�
     async def on_submit(self, interaction: discord.Interaction):
         guild = interaction.guild
         user = interaction.user
+        view = Buttons()
         channel = discord.utils.get(guild.text_channels, name = "заявки")
         embed = discord.Embed(title = "Заявка на Staff", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
         await channel.send(embed = embed, view = view)
