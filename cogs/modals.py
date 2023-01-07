@@ -29,6 +29,7 @@ class StaffModal(discord.ui.Modal, title = "Заявка на пост стаф�
         channel = discord.utils.get(guild.text_channels, name = "заявки")
         embed = discord.Embed(title = "Заявка на Staff", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
         await channel.send(embed = embed, view = view)
+        await interaction.response.send_message("Мы получили вашу заявку!", ephemeral = True)
         
 class AdmModal(discord.ui.Modal, title = "Заявка на пост администрации!"):
     name = discord.ui.TextInput(label = "Имя?", min_length = 2, max_length = 15)
