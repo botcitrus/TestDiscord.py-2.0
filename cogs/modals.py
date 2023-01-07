@@ -7,9 +7,9 @@ class Buttons(discord.ui.View):
         super().__init__(timeout=timeout)
         
     @discord.ui.button(label = "Принять", style = discord.ButtonStyle.green)
-    async def clicktru(self, interaction: discord.Interaction, button: discord.ui.Button):
-        for button in self.buttonren:
-            button.disabled = True
+    async def clicktru(self, interaction: discord.Interaction, butto: discord.ui.Button):
+        for butto in self.buttoren:
+            butto.disabled = True
         guild = interaction.guild
         channel = discord.utils.get(guild.text_channels, name = "приняты")
         await channel.send(f"{interaction.user}, ваша заявка принята!")
