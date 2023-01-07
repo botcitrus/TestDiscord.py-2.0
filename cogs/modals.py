@@ -23,8 +23,8 @@ class Buttons(discord.ui.View):
         await interaction.response.edit_message(view = self)
         await interaction.response.send_message("Успешно", ephemeral = True)
         
-    @discord.ui.button(label = "Отказать", style = discord.ButtonStyle.red)
-    async def clickfalse(self, interaction: discord.Interaction, child: discord.ui.Button):
+    @discord.ui.button(label = "Удалить", style = discord.ButtonStyle.grey
+    async def clickdelete(self, interaction: discord.Interaction, child: discord.ui.Button):
         for child in self.children:
             child.disabled = True
         await interaction.response.edit_message(view = self)
