@@ -8,7 +8,8 @@ class Buttons(discord.ui.View):
         
     @discord.ui.button(label = "Принять", style = discord.ButtonStyle.green)
     async def clicktru(self, interaction: discord.Interaction, button: discord.ui.Button):
-        button.disabled = True
+        for button in self.buttonren:
+            button.disabled = True
         guild = interaction.guild
         channel = discord.utils.get(guild.text_channels, name = "приняты")
         await channel.send(f"{interaction.user}, ваша заявка принята!")
@@ -17,7 +18,8 @@ class Buttons(discord.ui.View):
         
     @discord.ui.button(label = "Отказать", style = discord.ButtonStyle.red)
     async def clickfalse(self, interaction: discord.Interaction, button: discord.ui.Button):
-        button.disabled = True
+        for button in self.buttonren:
+            button.disabled = True
         user = interaction.user
         await user.send(f"{user}, ваша заявка отклонена!")
         await interaction.response.edit_message(view = self)
