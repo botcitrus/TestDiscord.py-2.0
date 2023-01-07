@@ -7,9 +7,9 @@ class Buttons(discord.ui.View):
         super().__init__(timeout=timeout)
         
     @discord.ui.button(label = "Принять", style = discord.ButtonStyle.green)
-    async def clicktru(self, interaction: discord.Interaction, butto: discord.ui.Button):
-        for butto in self.buttoren:
-            butto.disabled = True
+    async def clicktru(self, interaction: discord.Interaction, buttont: discord.ui.Button):
+        for buttont in self.buttonren:
+            buttont.disabled = True
         guild = interaction.guild
         channel = discord.utils.get(guild.text_channels, name = "приняты")
         await channel.send(f"{interaction.user}, ваша заявка принята!")
@@ -17,9 +17,9 @@ class Buttons(discord.ui.View):
         await interaction.response.send_message("Успешно", ephemeral = True)
         
     @discord.ui.button(label = "Отказать", style = discord.ButtonStyle.red)
-    async def clickfalse(self, interaction: discord.Interaction, button: discord.ui.Button):
-        for button in self.buttonren:
-            button.disabled = True
+    async def clickfalse(self, interaction: discord.Interaction, buttonf: discord.ui.Button):
+        for buttonf in self.buttonren:
+            buttonf.disabled = True
         user = interaction.user
         await user.send(f"{user}, ваша заявка отклонена!")
         await interaction.response.edit_message(view = self)
