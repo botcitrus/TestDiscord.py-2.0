@@ -16,8 +16,9 @@ class Buttons(discord.ui.View):
         await interaction.response.send_message("Успешно", ephemeral = True)
         
     @discord.ui.button(label = "Отказать", style = discord.ButtonStyle.red)
-    async def clickfalse(self, interaction: discord.Interaction, button: discord.ui.Button):
-        button.disabled = True
+    async def clickfalse(self, interaction: discord.Interaction, child: discord.ui.Button):
+        for child in self.children:
+            child.disabled = True
         user = interaction.user
         await user.send(f"{user}, ваша заявка отклонена!")
         await interaction.response.edit_message(view = self)
@@ -27,8 +28,8 @@ class Buttons(discord.ui.View):
     async def clickdelete(self, interaction: discord.Interaction, child: discord.ui.Button):
         for child in self.children:
             child.disabled = True
-        await interaction.response.edit_message(view = self)
         await interaction.response.send_message("Заявка удалена!", ephemeral = True)
+        await interaction.response.edit_message(view = self)
 
 class StaffModal(discord.ui.Modal, title = "Заявка на пост стаффа!"):
     name = discord.ui.TextInput(label = "Имя?", min_length = 2, max_length = 15)
