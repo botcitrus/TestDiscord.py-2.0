@@ -2,30 +2,51 @@ import discord
 from discord.ext import commands
 
 
+class Buttons(discord.ui.View):
+    def __init__(self, *, timeout = 180):
+        super().__init__(timeout=timeout)
+        
+    @discord.ui.button(label = "Принять", style = discord.ButtonStyle.green)
+    async def click(self, interaction: discord.Interaction, button: discord.ui.Button):
+        button.disabled = True
+        await interaction.response.send_message("Ваша заявка принята!")
+        
+    @discord.ui.button(label = "Принять", style = discord.ButtonStyle.red)
+    async def click(self, interaction: discord.Interaction, button: discord.ui.Button):
+        button.disabled = True
+        await interaction.response.send_message("Ваша заявка отказана!")
+
 class StaffModal(discord.ui.Modal, title = "Заявка на пост стаффа!"):
-    name = discord.ui.TextInput(label = "Имя?")
-    age = discord.ui.TextInput(label = "Возвраст?")
-    sentry = discord.ui.TextInput(label = "Часовой пояс от мск?")
-    whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.paragraph)
+    name = discord.ui.TextInput(label = "Имя?", min_length = 2, max_length = 15)
+    age = discord.ui.TextInput(label = "Возвраст?", min_length = 1, max_length = 2)
+    sentry = discord.ui.TextInput(label = "Часовой пояс от мск?", min_length = 2, max_length = 3)
+    whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.short)
     yourslf = discord.ui.TextInput(label = "Немного о себе", style = discord.TextStyle.paragraph)
     async def on_submit(self, interaction: discord.Interaction):
+        guild = interaction.guild
         user = interaction.user
-        await user.send(f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
+        view = Buttons()
+        channel = discord.utils.get(guild.text_channels, name = "заявки")
+        embed = discord.Embed(title = "Заявка на Staff", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
+        await channel.send(embed = embed, view = view)
         
 class AdmModal(discord.ui.Modal, title = "Заявка на пост администрации!"):
-    name = discord.ui.TextInput(label = "Имя?")
-    age = discord.ui.TextInput(label = "Возвраст?")
-    sentry = discord.ui.TextInput(label = "Часовой пояс от мск?")
-    whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.paragraph)
+    name = discord.ui.TextInput(label = "Имя?", min_length = 2, max_length = 15)
+    age = discord.ui.TextInput(label = "Возвраст?", min_length = 1, max_length = 2)
+    sentry = discord.ui.TextInput(label = "Часовой пояс от мск?", min_length = 2, max_length = 3)
+    whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.short)
     yourslf = discord.ui.TextInput(label = "Немного о себе", style = discord.TextStyle.paragraph)
     async def on_submit(self, interaction: discord.Interaction):
-        await interaction.user.send(f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
+        guild = interaction.guild
+        channel = discord.utils.get(guild.text_channels, name = "заявки")
+        embed = discord.Embed(title = "Заявка на Administration", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
+        await channel.send(embed = embed)
         
 class EveModal(discord.ui.Modal, title = "Заявка на пост ивентера!"):
-    name = discord.ui.TextInput(label = "Имя?")
-    age = discord.ui.TextInput(label = "Возвраст?")
-    sentry = discord.ui.TextInput(label = "Часовой пояс от мск?")
-    whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.paragraph)
+    name = discord.ui.TextInput(label = "Имя?", min_length = 2, max_length = 15)
+    age = discord.ui.TextInput(label = "Возвраст?", min_length = 1, max_length = 2)
+    sentry = discord.ui.TextInput(label = "Часовой пояс от мск?", min_length = 2, max_length = 3)
+    whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.short)
     yourslf = discord.ui.TextInput(label = "Немного о себе", style = discord.TextStyle.paragraph)
     async def on_submit(self, interaction: discord.Interaction):
         guild = interaction.guild
