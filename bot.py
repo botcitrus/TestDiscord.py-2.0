@@ -20,8 +20,6 @@ import os
 intents = discord.Intents.default()
 intents.message_content = True
 client = commands.Bot(command_prefix = "!", intents = intents, application_id = "1059886378223161384")
-guild = ctx.guild
-client.tree.copy_global_to(guild = guild)
 
 @client.event
 async def on_ready():
