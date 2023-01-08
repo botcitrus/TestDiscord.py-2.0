@@ -20,6 +20,8 @@ import os
 intents = discord.Intents.default()
 intents.message_content = True
 client = commands.Bot(command_prefix = "!", intents = intents, application_id = "1059886378223161384")
+guild = ctx.guild
+client.tree.copy_global_to(guild = guild)
 
 @client.event
 async def on_ready():
@@ -45,6 +47,7 @@ async def load():
 
 async def bot():
     await load()
+    client.tree.copy_global_to(guild = discord.Object(id = 1028330500579938424))
     await client.start('MTA1OTg4NjM3ODIyMzE2MTM4NA.GStMiN.FbPpxtCwK4PgOE423OPIZ8noyJwQnjKrTPyyC0')
     
 asyncio.run(bot())
