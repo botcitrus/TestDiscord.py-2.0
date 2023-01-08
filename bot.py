@@ -45,6 +45,7 @@ async def load():
 
 async def bot():
     await load()
+    await client.tree.sync(guild = discord.Object(id = 1028330500579938424))
     await client.start('MTA1OTg4NjM3ODIyMzE2MTM4NA.GStMiN.FbPpxtCwK4PgOE423OPIZ8noyJwQnjKrTPyyC0')
     
 asyncio.run(bot())
