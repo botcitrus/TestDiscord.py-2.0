@@ -20,7 +20,6 @@ import os
 intents = discord.Intents.all()
 intents.message_content = True
 client = commands.Bot(command_prefix = "!", intents = intents)
-tree = app_commands.CommandTree(client)
 
 @client.event
 async def on_ready():
@@ -28,7 +27,6 @@ async def on_ready():
     print(client.user.name)
     print(client.user.id)
     print("--------")
-    await tree.sync(guild=discord.Object(id=1028330500579938424))
     await client.change_presence(activity=discord.Streaming(name=f'Cyber Faceit', url="https://www.twitch.tv/qrushcsgo"))
 
 @client.event
