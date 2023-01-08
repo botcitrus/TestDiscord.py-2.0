@@ -20,7 +20,6 @@ import os
 intents = discord.Intents.default()
 intents.message_content = True
 client = commands.Bot(command_prefix = "!", intents = intents, application_id = "1059886378223161384")
-tree = app_commands.CommandTree(client)
 
 @client.event
 async def on_ready():
