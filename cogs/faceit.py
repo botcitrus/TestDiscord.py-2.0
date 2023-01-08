@@ -31,9 +31,9 @@ class Faceit(commands.Cog):
     async def on_ready(self):
         print("Faceit cog loaded.")
 
-    @self.client.tree.command(name = "number", description = "Факт о числе")
-    async def number(self, interaction: discord.Interaction, number: int):
-        await interaction.response.send_message(number)
+    #@self.client.tree.command(name = "number", description = "Факт о числе")
+    #async def number(self, interaction: discord.Interaction, number: int):
+        #await interaction.response.send_message(number)
         
 async def setup(client):
     await client.add_cog(Faceit(client))
