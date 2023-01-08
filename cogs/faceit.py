@@ -7,6 +7,8 @@ import asyncio
 import random
 import re
 import time
+from discord_slash import SlashCommand
+from discord_slash.utils.manage_commands import create_option
 from pymongo import MongoClient
 import psutil
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
@@ -31,9 +33,9 @@ class Faceit(commands.Cog):
     async def on_ready(self):
         print("Faceit cog loaded.")
 
-    @app_commands.command(name = "number", description = "Факт о числе")
+    @cog_ext.cog_slash(name = "number", description = "Факт о числе")
     async def number(self, interaction: discord.Interaction, number: int):
         await interaction.response.send_message(number)
         
 async def setup(client):
-    await client.add_cog(Faceit(client), guilds = [discord.Object(id = 1028330500579938424)])
+    await client.add_cog(Faceit(client))
