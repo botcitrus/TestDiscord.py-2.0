@@ -10,8 +10,6 @@ import asyncio
 import datetime
 import sys
 import re
-from discord_slash import SlashCommand
-from discord_slash.utils.manage_commands import create_option
 import requests
 import traceback
 import random
@@ -22,7 +20,6 @@ import os
 intents = discord.Intents.all()
 intents.message_content = True
 client = commands.Bot(command_prefix = "!", intents = intents)
-slash = SlashCommand(client, sync_commands = True, sync_on_cog_reload=True)
 
 @client.event
 async def on_ready():
