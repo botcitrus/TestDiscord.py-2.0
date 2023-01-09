@@ -29,7 +29,7 @@ class Buttons(discord.ui.View):
 class RegModal(discord.ui.Modal, title = "Регистрация аккаунта на фейсите!"):
     def __init__(self):
         self.cluster = MongoClient("mongodb+srv://Setroom:CFLrxCSX0fzBIMlA@cluster0.l9fw9.mongodb.net/ecodb?retryWrites=true&w=majority")
-		self.colluser = self.cluster.faceit.user
+        self.colluser = self.cluster.faceit.user
         self.game = self.cluster.faceit.game
         
     name = discord.ui.TextInput(label = "Имя в игре:", min_length = 2, max_length = 15)
