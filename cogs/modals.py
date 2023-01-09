@@ -11,24 +11,23 @@ class RegModal(discord.ui.Modal, title = "Регистрация аккаунт�
         colluser = cluster.faceit.user
         guild = interaction.guild
         user = interaction.user
-        if not colluser.count_documents({"guild_id": guild.id, "user_id": user.id}):
-            post = {
-                "user_id": user.id,
-                "guild_id": guild.id,
-                "name": self.name,
-                "id": self.idgame,
-                "mmr": 0,
-                "qual": 0,
-                "pro": 0,
-                "qualle": false,
-                "prole": false,
-                "verify": false,
-                "kill": 0,
-                "die": 0,
-                "win": 0,
-                "lose": 0
-            }
-            self.collection.insert_one(post)
+        post = {
+            "user_id": user.id,
+            "guild_id": guild.id,
+            "name": self.name,
+            "id": self.idgame,
+            "mmr": 0,
+            "qual": 0,
+            "pro": 0,
+            "qualle": false,
+            "prole": false,
+            "verify": false,
+            "kill": 0,
+            "die": 0,
+            "win": 0,
+            "lose": 0
+        }
+        self.collection.insert_one(post)
         await interaction.response.send_message("Вы зарегистрированны!", ephemeral = True)
         
 class Buttons(discord.ui.View):
