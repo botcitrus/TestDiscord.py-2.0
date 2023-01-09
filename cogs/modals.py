@@ -14,8 +14,8 @@ class RegModal(discord.ui.Modal, title = "Регистрация аккаунт�
         post = {
             "user_id": user.id,
             "guild_id": guild.id,
-            "name": self.name,
-            "idgame": self.idgame,
+            "name": name,
+            "idgame": idgame,
             "mmr": 0,
             "qual": 0,
             "pro": 0,
