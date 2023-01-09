@@ -1,5 +1,6 @@
 import discord
 from discord.ext import commands
+from pymongo import MongoClient
 
 
 class Buttons(discord.ui.View):
@@ -25,64 +26,31 @@ class Buttons(discord.ui.View):
         await interaction.response.edit_message(view = self)
         await interaction.response.send_message("Успешно", ephemeral = True)
 
-class StaffModal(discord.ui.Modal, title = "Заявка на пост стаффа!"):
-    name = discord.ui.TextInput(label = "Имя?", min_length = 2, max_length = 15)
-    age = discord.ui.TextInput(label = "Возвраст?", min_length = 1, max_length = 2)
-    sentry = discord.ui.TextInput(label = "Часовой пояс от мск?", min_length = 2, max_length = 3)
+class RegModal(discord.ui.Modal, title = "Регистрация аккаунта на фейсите!"):
+    def __init__(self):
+        self.cluster = MongoClient("mongodb+srv://Setroom:CFLrxCSX0fzBIMlA@cluster0.l9fw9.mongodb.net/ecodb?retryWrites=true&w=majority")
+		self.colluser = self.cluster.faceit.user
+        self.game = self.cluster.faceit.game
+        
+    name = discord.ui.TextInput(label = "Имя в игре:", min_length = 2, max_length = 15)
+    age = discord.ui.TextInput(label = "id в игре:", min_length = 8, max_length = 20)
     whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.short)
-    yourslf = discord.ui.TextInput(label = "Немного о себе", style = discord.TextStyle.paragraph)
     async def on_submit(self, interaction: discord.Interaction):
         guild = interaction.guild
         user = interaction.user
-        view = Buttons()
-        channel = discord.utils.get(guild.text_channels, name = "заявки")
-        embed = discord.Embed(title = "Заявка на Staff", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
-        await channel.send(embed = embed, view = view)
         await interaction.response.send_message("Мы получили вашу заявку!", ephemeral = True)
-        
-class AdmModal(discord.ui.Modal, title = "Заявка на пост администрации!"):
-    name = discord.ui.TextInput(label = "Имя?", min_length = 2, max_length = 15)
-    age = discord.ui.TextInput(label = "Возвраст?", min_length = 1, max_length = 2)
-    sentry = discord.ui.TextInput(label = "Часовой пояс от мск?", min_length = 2, max_length = 3)
-    whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.short)
-    yourslf = discord.ui.TextInput(label = "Немного о себе", style = discord.TextStyle.paragraph)
-    async def on_submit(self, interaction: discord.Interaction):
-        guild = interaction.guild
-        channel = discord.utils.get(guild.text_channels, name = "заявки")
-        embed = discord.Embed(title = "Заявка на Administration", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
-        await channel.send(embed = embed)
-        
-class EveModal(discord.ui.Modal, title = "Заявка на пост ивентера!"):
-    name = discord.ui.TextInput(label = "Имя?", min_length = 2, max_length = 15)
-    age = discord.ui.TextInput(label = "Возвраст?", min_length = 1, max_length = 2)
-    sentry = discord.ui.TextInput(label = "Часовой пояс от мск?", min_length = 2, max_length = 3)
-    whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.short)
-    yourslf = discord.ui.TextInput(label = "Немного о себе", style = discord.TextStyle.paragraph)
-    async def on_submit(self, interaction: discord.Interaction):
-        guild = interaction.guild
-        channel = discord.utils.get(guild.text_channels, name = "заявки")
-        embed = discord.Embed(title = "Заявка на Eventer", description = f"Имя: {self.name}\nВозвраст: {self.age}\nЧасовой поис: {self.sentry}\nПочему именно вы: {self.whyou}\nНемного о себе: {self.yourslf}")
-        await channel.send(embed = embed)
         
 class Select(discord.ui.Select):
     def __init__(self):
         options=[
-            discord.SelectOption(label="Staff", emoji="🔧", description="Заявка на роль стаффа"),
-            discord.SelectOption(label="Administrator", emoji="⚒", description="Заявка на роль администрации"),
-            discord.SelectOption(label="Eventer", emoji="🔮", description="Заявка на роль ивентера")
+            discord.SelectOption(label="Registration", emoji="📝", description="Регистрация аккаунта!"),
             ]
         super().__init__(placeholder="Выберите нужный пункт:", options = options) #max_values = 1, min_values = 1,
     async def callback(self, interaction: discord.Interaction):
         while True:
-            if self.values[0] == "Staff":
-                await interaction.response.send_modal(StaffModal())
-                await interaction.response.send_message("Заявка на роль eventer принята!", ephemeral = True)
-            elif self.values[0] == "Administrator":
-                await interaction.response.send_modal(AdmModal())
-                await interaction.response.send_message("Заявка на роль eventer принята!", ephemeral = True)
-            elif self.values[0] == "Eventer":
-                await interaction.response.send_modal(EveModal())
-                await interaction.response.send_message("Заявка на роль eventer принята!", ephemeral = True)
+            if self.values[0] == "Registration":
+                await interaction.response.send_modal(RegModal())
+                await interaction.response.send_message("Вы успешно зарегистрированы!", ephemeral = True)
             
 class ModalView(discord.ui.View):
     def __init__(self, *, timeout = 180):
@@ -94,7 +62,7 @@ class Modal(commands.Cog):
         self.client = client
       
     @commands.command()
-    async def набор(self, ctx):
+    async def регистрация(self, ctx):
         embed = discord.Embed(title = "Набор на Staff, Administrator, Eventer", description = "Выберите нужную категорию и заполните заявку!")
         await ctx.send(embed = embed, view = ModalView())
       
