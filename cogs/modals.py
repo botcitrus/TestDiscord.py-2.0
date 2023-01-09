@@ -7,8 +7,8 @@ class RegModal(discord.ui.Modal, title = "Регистрация аккаунт�
     name = discord.ui.TextInput(label = "Имя в игре:", min_length = 2, max_length = 15)
     idgame = discord.ui.TextInput(label = "id в игре:", min_length = 8, max_length = 20)
     async def on_submit(self, interaction: discord.Interaction):
-        cluster = MongoClient("mongodb+srv://Setroom:CFLrxCSX0fzBIMlA@cluster0.l9fw9.mongodb.net/ecodb?retryWrites=true&w=majority")
-        colluser = cluster.faceit.user
+        self.cluster = MongoClient("mongodb+srv://Setroom:CFLrxCSX0fzBIMlA@cluster0.l9fw9.mongodb.net/ecodb?retryWrites=true&w=majority")
+        self.colluser = self.cluster.faceit.user
         guild = interaction.guild
         user = interaction.user
         post = {
@@ -27,7 +27,7 @@ class RegModal(discord.ui.Modal, title = "Регистрация аккаунт�
             "win": 0,
             "lose": 0
         }
-        colluser.insert_one(post)
+        self.colluser.insert_one(post)
         await interaction.response.send_message("Вы зарегистрированны!", ephemeral = True)
         
 class Buttons(discord.ui.View):
