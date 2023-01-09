@@ -27,7 +27,7 @@ class RegModal(discord.ui.Modal, title = "Регистрация аккаунт�
             "win": 0,
             "lose": 0
         }
-        self.collection.insert_one(post)
+        colluser.insert_one(post)
         await interaction.response.send_message("Вы зарегистрированны!", ephemeral = True)
         
 class Buttons(discord.ui.View):
