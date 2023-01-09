@@ -15,13 +15,13 @@ class RegModal(discord.ui.Modal, title = "Регистрация аккаунт�
             "user_id": user.id,
             "guild_id": guild.id,
             "name": self.name,
-            "id": self.idgame,
+            "idgame": self.idgame,
             "mmr": 0,
             "qual": 0,
             "pro": 0,
-            "qualle": false,
-            "prole": false,
-            "verify": false,
+            "qualle": 0,
+            "prole": 0,
+            "verify": 0,
             "kill": 0,
             "die": 0,
             "win": 0,
@@ -40,11 +40,6 @@ class Buttons(discord.ui.View):
         user = interaction.user
         await interaction.response.send_modal(RegModal())
         await interaction.response.send_message("Зарегистрируйтесь!", ephemeral = True)
-            
-#class ModalView(discord.ui.View):
-    #def __init__(self, *, timeout = 180):
-        #super().__init__(timeout=timeout)
-        #self.add_item(())
         
 class Modal(commands.Cog):
     def __init__(self, client):
