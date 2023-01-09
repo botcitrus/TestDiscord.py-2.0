@@ -3,15 +3,32 @@ from discord.ext import commands
 from pymongo import MongoClient
 
 
-class RegModal(discord.ui.Modal, title = "Регистрация аккаунта на фейсите!"):
+class RegModal(discord.ui.Modal, title = "Регистрация аккаунта:"):
     name = discord.ui.TextInput(label = "Имя в игре:", min_length = 2, max_length = 15)
-    age = discord.ui.TextInput(label = "id в игре:", min_length = 8, max_length = 20)
-    whyou = discord.ui.TextInput(label = "Почему именно вы?", style = discord.TextStyle.short)
+    idgame = discord.ui.TextInput(label = "id в игре:", min_length = 8, max_length = 20)
     async def on_submit(self, interaction: discord.Interaction):
         cluster = MongoClient("mongodb+srv://Setroom:CFLrxCSX0fzBIMlA@cluster0.l9fw9.mongodb.net/ecodb?retryWrites=true&w=majority")
         colluser = cluster.faceit.user
         guild = interaction.guild
         user = interaction.user
+        if not colluser.count_documents({"guild_id": guild.id, "user_id": user.id}):
+            post = {
+                "user_id": user.id,
+                "guild_id": guild.id,
+                "name": self.name,
+                "id": self.idgame,
+                "mmr": 0,
+                "qual": 0,
+                "pro": 0,
+                "qualle": false,
+                "prole": false,
+                "verify": false,
+                "kill": 0,
+                "die": 0,
+                "win": 0,
+                "lose": 0
+            }
+            self.collection.insert_one(post)
         await interaction.response.send_message("Вы зарегистрированны!", ephemeral = True)
         
 class Buttons(discord.ui.View):
