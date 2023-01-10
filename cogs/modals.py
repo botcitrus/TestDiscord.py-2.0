@@ -2,6 +2,21 @@ import discord
 from discord.ext import commands
 from pymongo import MongoClient
 
+class Select(discord.ui.Select):
+    def __init__(self):
+        options=[
+            discord.SelectOption(label = "Registration", emoji = "👌", description = "This is option 1!")
+            ]
+        super().__init__(placeholder = "Выберите нужное:", options = options)
+    async def callback(self, interaction: discord.Interaction):
+        while True:
+            if self.values[0] == "Registration":
+                await interaction.response.edit_message(content="This is the first option from the entire list!")
+
+class SelectView(discord.ui.View):
+    def __init__(self, *, timeout = None):
+        super().__init__(timeout=timeout)
+        self.add_item(Select())
 
 class RegModal(discord.ui.Modal, title = "Регистрация аккаунта:"):
     name = discord.ui.TextInput(label = "Имя в игре:", min_length = 2, max_length = 15)
@@ -16,7 +31,7 @@ class RegModal(discord.ui.Modal, title = "Регистрация аккаунт�
         self.colluser.insert_one(post)
         
 class Buttons(discord.ui.View):
-    def __init__(self, *, timeout = 180):
+    def __init__(self, *, timeout = None):
         super().__init__(timeout=timeout)
         
     @discord.ui.button(label = "Регистрация", style = discord.ButtonStyle.green)
