@@ -120,4 +120,4 @@ class Error(commands.Cog):
             raise error
 
 async def setup(client):
-    client.add_cog(Error(client))
+    await client.add_cog(Error(client))
