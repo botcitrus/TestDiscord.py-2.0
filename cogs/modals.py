@@ -5,10 +5,10 @@ from pymongo import MongoClient
 class ModModal(discord.ui.Modal, title = "Заявка на модератора:"):
     age = discord.ui.TextInput(label = "Возвраст:", min_length = 1, max_length = 2, placeholder = "14")
     time = discord.ui.TextInput(label = "Время на сервере:", min_length = 8, max_length = 20, placeholder = "1-2 месяца")
-    experions = discord.ui.TextInput(label = "Опыт работы:", placeholder = "2 года, был на серверах: Saints, PTO, STO и т.д.", style = discord.TextStyle.short)
-    active = discord.ui.TextInput(label = "Активность:", placeholder = "5-6 часов в день", style = discord.TextStyle.short)
-    pravila = discord.ui.TextInput(label = "Знание правил:", placeholder = "да знаю", style = discord.TextStyle.short)
-    FA2 = discord.ui.TextInput(label = "2FA:", placeholder = "есть/нет", style = discord.TextStyle.short)
+    experions = discord.ui.TextInput(label = "Опыт работы:", placeholder = "2 года, был на серверах: Saints, PTO, STO и т.д.")
+    active = discord.ui.TextInput(label = "Активность:", placeholder = "5-6 часов в день")
+    pravila = discord.ui.TextInput(label = "Знание правил:", placeholder = "да знаю")
+    FA2 = discord.ui.TextInput(label = "2FA:", placeholder = "есть/нет")
     async def on_submit(self, interaction: discord.Interaction):
         embed = discord.Embed(title = "Заявка на Moderator", description = f"Пользователь: {interaction.user}\nВозвраст: {self.age}\nВремя на сервере: {self.time}\nОпыт работы: {self.experions}\nАктивность: {self.active}\nЗнание правил: {self.pravila}\n2FA: {self.FA2}")
         await interaction.response.send_message("Заявка получена и будет рассмотрена в ближайщее время!", ephemeral = True)
@@ -25,10 +25,10 @@ class PMModal(discord.ui.Modal, title = "Заявка на пиар-менедж
 class DesModal(discord.ui.Modal, title = "Заявка на дизайнера:"):
     age = discord.ui.TextInput(label = "Возвраст:", min_length = 1, max_length = 2, placeholder = "14")
     time = discord.ui.TextInput(label = "Время на сервере:", min_length = 8, max_length = 20, placeholder = "1-2 месяца")
-    experions = discord.ui.TextInput(label = "Опыт работы:", placeholder = "2 года, был на серверах: Saints, PTO, STO и т.д.", style = discord.TextStyle.short)
-    device = discord.ui.TextInput(label = "Устройство:", placeholder = "телефон/пк", style = discord.TextStyle.short)
-    art = discord.ui.TextInput(label = "Примеры работ:", placeholder = "в лс гл.Организатор", style = discord.TextStyle.short)
-    rob = discord.ui.TextInput(label = "Готовы работать бесплатно, за пиар:", placeholder = "да/нет", style = discord.TextStyle.short)
+    experions = discord.ui.TextInput(label = "Опыт работы:", placeholder = "2 года, был на серверах: Saints, PTO, STO и т.д.")
+    device = discord.ui.TextInput(label = "Устройство:", placeholder = "телефон/пк")
+    art = discord.ui.TextInput(label = "Примеры работ:", placeholder = "в лс гл.Организатор")
+    rob = discord.ui.TextInput(label = "Готовы работать бесплатно, за пиар:", placeholder = "да/нет")
     async def on_submit(self, interaction: discord.Interaction):
         embed = discord.Embed(title = "Заявка на Designer", description = f"Пользователь: {interaction.user}\nВозвраст: {self.age}\nВремя на сервере: {self.time}\nОпыт работы: {self.experions}\nДевайс: {self.device}\nПримеры работ: {self.art}\nГотовы работать бесплатно, за пиар: {self.rob}")
         await interaction.response.send_message("Заявка получена и будет рассмотрена в ближайщее время!", ephemeral = True)
