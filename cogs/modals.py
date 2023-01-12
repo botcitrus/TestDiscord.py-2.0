@@ -10,7 +10,7 @@ class ModModal(discord.ui.Modal, title = "Заявка на модератора
     FA2 = discord.ui.TextInput(label = "2FA:", placeholder = "есть/нет")
     async def on_submit(self, interaction: discord.Interaction):
         guild = interaction.guild
-        channel = discord.utils.get(guild.channels, id = "1060262034496815176")
+        channel = discord.utils.get(guild.channels, id = 1060262034496815176)
         embed = discord.Embed(title = "Заявка на Moderator", description = f"Пользователь: {interaction.user}\nВозвраст: {self.age}\nВремя на сервере: {self.time}\nОпыт работы: {self.experions}\nАктивность: {self.active}\n2FA: {self.FA2}")
         await interaction.response.send_message("Заявка получена и будет рассмотрена в ближайщее время!", ephemeral = True)
         await channel.send(embed = embed)
@@ -22,7 +22,7 @@ class PMModal(discord.ui.Modal, title = "Заявка на пиар-менедж
     active = discord.ui.TextInput(label = "Количество партнёрок:", placeholder = "20-30 в день", style=discord.TextStyle.short)
     async def on_submit(self, interaction: discord.Interaction):
         guild = interaction.guild
-        channel = discord.utils.get(guild.channels, id = "1060262034496815176")
+        channel = discord.utils.get(guild.channels, id = 1060262034496815176)
         embed = discord.Embed(title = "Заявка на Piar Manager", description = f"Пользователь: {interaction.user}\nВозвраст: {self.age}\nВремя на сервере: {self.time}\nОпыт работы: {self.experions}\nКоличество партнёрок: {self.active}")
         await channel.send(embed = embed)
 
@@ -34,7 +34,7 @@ class DesModal(discord.ui.Modal, title = "Заявка на дизайнера:"
     rob = discord.ui.TextInput(label = "Готовы работать бесплатно, за пиар:", placeholder = "да/нет")
     async def on_submit(self, interaction: discord.Interaction):
         guild = interaction.guild
-        channel = discord.utils.get(guild.channels, id = "1060262034496815176")
+        channel = discord.utils.get(guild.channels, id = 1060262034496815176)
         embed = discord.Embed(title = "Заявка на Designer", description = f"Пользователь: {interaction.user}\nВозвраст: {self.age}\nВремя на сервере: {self.time}\nОпыт работы: {self.experions}\nДевайс: {self.device}\nГотовы работать бесплатно, за пиар: {self.rob}")
         await interaction.response.send_message("Заявка получена и будет рассмотрена в ближайщее время!", ephemeral = True)
         await channel.send(embed = embed)
