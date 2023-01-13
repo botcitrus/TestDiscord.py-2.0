@@ -67,12 +67,61 @@ class Faceit(commands.Cog):
 	    )
             await ctx.send(embed = embed)
         else:
+            code = random.randrange(10000)
+            post = {
+                "code": code
+                "owner_id": ctx.author.id,
+                "guild_id": ctx.guild.id,
+                "name1": name1,
+                "name2": name2,
+                "tag1": tag1,
+                "tag2": tag2,
+                "membes1": [],
+                "members2": []
+            }
+
+            self.collgame.insert_one(post)
             embed = discord.Embed(
                 title = f"{tru} Успешно:",
-                description = f"Игра команд: {name1} vs {name2} успешно создана!\nБот готов принимать ставки",
+                description = f"**{name1}** vs **{name2}**\n\nТеги команд: {tag1} vs {tag2}\n\nБот готов принимать ставки",
                 color = 0x00FFFF
 	    )
             await ctx.send(embed = embed)
+		
+    @commands.command()
+    async def find(self, ctx, code: int = None):
+        tru = discord.utils.get(self.client.emojis, name='yes')
+        err = discord.utils.get(self.client.emojis, name='no')
+        if code is None:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите код игры!",
+                color = discord.Color.red()
+	    )
+            await ctx.send(embed = embed)
+        elif not self.collgame.find_one({'guild_id': ctx.guild.id, "code": code}):
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Указаный вами код игры не найден!",
+                color = discord.Color.red()
+	    )
+            await ctx.send(embed = embed)
+        else:
+            name1 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["name1"]
+            name2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["name2"]
+            members1 = len(self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["members1"])
+            members2 = len(self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["members2"])
+            sto = members1 + membes2
+            prots1 = members1 / sto
+            prots2 = members2 / sto
+            embed = discord.Embed(
+                title = f"{name1} vs {name2}",
+                description = f"За {name1}: {members1}\nЗа {name2}: {members2}\n\nПроцент выигрыша {name1}: {prots1}%\nПроцент выигрыша {name2}: {prots2}%",
+                color = 0x00FFFF
+	    )
+            await ctx.send(embed = embed)
+		
+		
         
 async def setup(client):
     await client.add_cog(Faceit(client))
