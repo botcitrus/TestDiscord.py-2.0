@@ -109,8 +109,8 @@ class Faceit(commands.Cog):
         else:
             name1 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["name1"]
             name2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["name2"]
-            members1 = len(self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["members1"])
-            members2 = len(self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["members2"])
+            members1 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["members1"]
+            members2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["members2"]
             embed = discord.Embed(
                 title = f"{name1} vs {name2}",
                 description = f"За {name1}: {members1}\nЗа {name2}: {members2}",
