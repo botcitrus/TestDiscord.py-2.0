@@ -69,7 +69,7 @@ class Faceit(commands.Cog):
         else:
             code = random.randrange(10000)
             post = {
-                "code": code
+                "code": code,
                 "owner_id": ctx.author.id,
                 "guild_id": ctx.guild.id,
                 "name1": name1,
@@ -120,7 +120,6 @@ class Faceit(commands.Cog):
                 color = 0x00FFFF
 	    )
             await ctx.send(embed = embed)
-		
 		
         
 async def setup(client):
