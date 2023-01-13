@@ -111,12 +111,9 @@ class Faceit(commands.Cog):
             name2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["name2"]
             members1 = len(self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["members1"])
             members2 = len(self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["members2"])
-            sto = members1 + membes2
-            prots1 = members1 / sto
-            prots2 = members2 / sto
             embed = discord.Embed(
                 title = f"{name1} vs {name2}",
-                description = f"За {name1}: {members1}\nЗа {name2}: {members2}\n\nПроцент выигрыша {name1}: {prots1}%\nПроцент выигрыша {name2}: {prots2}%",
+                description = f"За {name1}: {members1}\nЗа {name2}: {members2}",
                 color = 0x00FFFF
 	    )
             await ctx.send(embed = embed)
