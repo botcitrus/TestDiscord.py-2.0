@@ -83,7 +83,7 @@ class Faceit(commands.Cog):
             self.collgame.insert_one(post)
             embed = discord.Embed(
                 title = f"{tru} Успешно:",
-                description = f"**{name1}** vs **{name2}**\n\nТеги команд: {tag1} vs {tag2}\n\nБот готов принимать ставки",
+                description = f"**{name1}** vs **{name2}**\n\nТеги команд: {tag1} vs {tag2}\n\nБот готов принимать ставки\n\nКод игры: {code}",
                 color = 0x00FFFF
 	    )
             await ctx.send(embed = embed)
