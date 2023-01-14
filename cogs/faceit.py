@@ -77,7 +77,8 @@ class Faceit(commands.Cog):
                 f"{tag1}tag": tag1,
                 f"{tag2}tag": tag2,
                 f"members{tag1}": [],
-                f"members{tag2}": []
+                f"members{tag2}": [],
+                "stop": 0
             }
 
             self.collgame.insert_one(post)
