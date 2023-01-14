@@ -109,14 +109,36 @@ class Faceit(commands.Cog):
         else:
             name1 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["name1"]
             name2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["name2"]
-            members1 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["members1"]
-            members2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["members2"]
+            tag1 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["tag1"]
+            tag2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["tag2"]
             embed = discord.Embed(
                 title = f"{name1} vs {name2}",
-                description = f"За {name1}: {members1}\nЗа {name2}: {members2}",
+                description = f"Теги команд: {tag1}, {tag2}",
                 color = 0x00FFFF
 	    )
             await ctx.send(embed = embed)
+		
+    @commands.command()
+    async def profile(self, ctx, member: discord.User):
+        if member is None:
+            member = ctx.author
+	
+        if not self.colluser.count_documents({"guild_id": ctx.guild.id, "user_id": member.id}):
+            post = {
+                "user_id": member.id,
+                "guild_id": ctx.guild.id,
+                "points": 50
+            }
+            self.colluser.insert_one(post)
+		
+        points = self.collgame.find_one({'guild_id': ctx.guild.id, "user_id": member.id})["points"]
+        embed = discord.Embed(
+            title = f"Профиль: {member.mention}",
+            description = f"Имя: {member.name}\nID: {member.id}\nPoints: {points}",
+            color = 0x00FFFF
+	)
+        await ctx.send(embed = embed)
+        
 		
         
 async def setup(client):
