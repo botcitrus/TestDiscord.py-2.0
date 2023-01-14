@@ -35,6 +35,7 @@ class Faceit(commands.Cog):
         print("Faceit cog loaded.")
 	
     @commands.command()
+    @commands.has_permissions(administrator = True)
     async def game(self, ctx, name1: str = None, tag1: str = None, name2: str = None, tag2: str = None):
         tru = discord.utils.get(self.client.emojis, name='yes')
         err = discord.utils.get(self.client.emojis, name='no')
@@ -217,6 +218,7 @@ class Faceit(commands.Cog):
             await ctx.send(embed = embed)
 
     @commands.command()
+    @commands.has_permissions(administrator = True)
     async def give(self, ctx, member: discord.User = None, points: int = None):
         tru = discord.utils.get(self.client.emojis, name='yes')
         err = discord.utils.get(self.client.emojis, name='no')
@@ -252,6 +254,7 @@ class Faceit(commands.Cog):
             await ctx.send(embed = embed)
 		
     @commands.command()
+    @commands.has_permissions(administrator = True)
     async def remove(self, ctx, member: discord.User = None, points: int = None):
         tru = discord.utils.get(self.client.emojis, name='yes')
         err = discord.utils.get(self.client.emojis, name='no')
