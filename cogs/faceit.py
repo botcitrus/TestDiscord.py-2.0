@@ -133,7 +133,7 @@ class Faceit(commands.Cog):
 		
         points = self.colluser.find_one({'guild_id': ctx.guild.id, "user_id": member.id})["points"]
         embed = discord.Embed(
-            title = f"Профиль: {member.mention}",
+            title = f"Профиль: {member}",
             description = f"Имя: {member.name}\nID: {member.id}\nPoints: {points}",
             color = 0x00FFFF
         )
