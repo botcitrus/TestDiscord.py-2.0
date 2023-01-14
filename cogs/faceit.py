@@ -120,7 +120,7 @@ class Faceit(commands.Cog):
 		
     @commands.command()
     async def profile(self, ctx, member: discord.User = None):
-        if member is None:
+        if member == None:
             member = ctx.author
 	
         if not self.colluser.count_documents({"guild_id": ctx.guild.id, "user_id": member.id}):
