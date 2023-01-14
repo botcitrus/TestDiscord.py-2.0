@@ -129,7 +129,7 @@ class Faceit(commands.Cog):
             members2 = len(self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"members{tag2}"])
             embed = discord.Embed(
                 title = f"{name1} vs {name2}",
-                description = f"Теги команд: {tag1}, {tag2}\nЗа команду {name1}: {members1}\nЗа команду {name2}: {members2}",
+                description = f"Теги команд: {tag1}, {tag2}\n\nЗа команду {name1}: {members1}\n\nЗа команду {name2}: {members2}",
                 color = 0x00FFFF
 	    )
             await ctx.send(embed = embed)
@@ -211,6 +211,41 @@ class Faceit(commands.Cog):
             embed = discord.Embed(
                 title = f"{tru} Успешно:",
                 description = f"Вы успешно поставили ставку на {name}",
+                color = 0x00FFFF
+            )
+            await ctx.send(embed = embed)
+
+    @commands.command()
+    async def give(self, ctx, member: discord.User = None, points: int = None):
+        tru = discord.utils.get(self.client.emojis, name='yes')
+        err = discord.utils.get(self.client.emojis, name='no')
+        if member is None:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите пользователя которому хотите выдать points!",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
+        elif points is None:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите points!",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
+        elif points <= 0:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите points больше 0!",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
+        else:
+            point = self.colluser.find_one({'guild_id': ctx.guild.id, "user_id": member.id})["points"] + points
+            self.colluser.update_one({'guild_id': ctx.guild.id, 'user_id': member.id}, {'$set':{'points': point}})
+            embed = discord.Embed(
+                title = f"{tru} Успешно:",
+                description = f"Вы успешно выдали {points} пользователю, {member}",
                 color = 0x00FFFF
             )
             await ctx.send(embed = embed)
