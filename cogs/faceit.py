@@ -72,12 +72,12 @@ class Faceit(commands.Cog):
                 "code": code,
                 "owner_id": ctx.author.id,
                 "guild_id": ctx.guild.id,
-                "name1": name1,
-                "name2": name2,
-                "tag1": tag1,
-                "tag2": tag2,
-                "membes1": [],
-                "members2": []
+                f"{tag1}name": name1,
+                f"{tag2}name": name2,
+                f"{tag1}tag": tag1,
+                f"{tag2}tag": tag2,
+                f"members{tag1}": [],
+                f"members{tag2}": []
             }
 
             self.collgame.insert_one(post)
@@ -89,7 +89,7 @@ class Faceit(commands.Cog):
             await ctx.send(embed = embed)
 		
     @commands.command()
-    async def find(self, ctx, code: int = None):
+    async def find(self, ctx, code: int = None, tag1: str = None, tag2: str = None):
         tru = discord.utils.get(self.client.emojis, name='yes')
         err = discord.utils.get(self.client.emojis, name='no')
         if code is None:
@@ -106,14 +106,44 @@ class Faceit(commands.Cog):
                 color = discord.Color.red()
 	    )
             await ctx.send(embed = embed)
+        elif tag1 is None:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите тег первой команды!",
+                color = discord.Color.red()
+	    )
+            await ctx.send(embed = embed)
+        elif tag2 is None:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите тег первой команды!",
+                color = discord.Color.red()
+	    )
+            await ctx.send(embed = embed)
+        elif not self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag1}tag"]:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Указанный вами тег1 под данным кодом не найден!",
+                color = discord.Color.red()
+	    )
+            await ctx.send(embed = embed)
+        elif not self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag2}tag"]:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Указанный вами тег2 под данным кодом не найден!",
+                color = discord.Color.red()
+	    )
+            await ctx.send(embed = embed)
         else:
-            name1 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["name1"]
-            name2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["name2"]
-            tag1 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["tag1"]
-            tag2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["tag2"]
+            name1 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag1}name"]
+            name2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag2}name"]
+            tag1 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag1}tag"]
+            tag2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag2}tag"]
+            members1 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"members{tag1}"]
+            members2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"members{tag2}"]
             embed = discord.Embed(
                 title = f"{name1} vs {name2}",
-                description = f"Теги команд: {tag1}, {tag2}",
+                description = f"Теги команд: {tag1}, {tag2}\nЗа команду {name1}: {members1}\nЗа команду {name2}: {members2}",
                 color = 0x00FFFF
 	    )
             await ctx.send(embed = embed)
@@ -139,6 +169,72 @@ class Faceit(commands.Cog):
         )
         await ctx.send(embed = embed)
         
+    @commands.command()
+    async def stavka(self, ctx, code: int = None, tag: str = None, stavka: int = None):
+        tru = discord.utils.get(self.client.emojis, name='yes')
+        err = discord.utils.get(self.client.emojis, name='no')
+        if code is None:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите код игры!",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
+        elif not self.collgame.find_one({'guild_id': ctx.guild.id, "code": code}):
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Указанный вами код не найден!",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
+        elif tag is None:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите тег команды на корторую хотите поставить ставку!",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
+        elif not self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag}tag"]:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Указанный вами тег1 под данным кодом не найден!",
+                color = discord.Color.red()
+	    )
+            await ctx.send(embed = embed)
+        elif stavka is None:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите ставку!",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
+        elif stavka <= 0:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите ставку больше 0!",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
+        elif self.colluser.find_one({'guild_id': ctx.guild.id, "user_id": member.id})["points"] < stavka:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"На вашем балансе не достаточно points",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
+        else:
+            name = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag}name"]
+            stavkar = self.colluser.find_one({'guild_id': ctx.guild.id, "user_id": ctx.author.id})["points"] - stavka
+            self.colluser.update_one({'guild_id': ctx.guild.id, 'user_id': ctx.author.id}, {'$set':{'points': stavkar}})
+            addmembers = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"members{tag}"]
+            addmembers.append(ctx.author.id)
+            self.collgame.update_one({'guild_id': ctx.guild.id, 'code': code}, {'$set':{f'members{tag}': addmembers}})
+            embed = discord.Embed(
+                title = f"{tru} Успешно:",
+                description = f"Вы успешно поставили ставку на {name}",
+                color = 0x00FFFF
+            )
+            await ctx.send(embed = embed)
 		
         
 async def setup(client):
