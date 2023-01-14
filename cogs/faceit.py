@@ -131,12 +131,12 @@ class Faceit(commands.Cog):
             }
             self.colluser.insert_one(post)
 		
-        points = self.collgame.find_one({'guild_id': ctx.guild.id, "user_id": member.id})["points"]
+        points = self.colluser.find_one({'guild_id': ctx.guild.id, "user_id": member.id})["points"]
         embed = discord.Embed(
             title = f"Профиль: {member.mention}",
             description = f"Имя: {member.name}\nID: {member.id}\nPoints: {points}",
             color = 0x00FFFF
-	)
+        )
         await ctx.send(embed = embed)
         
 		
