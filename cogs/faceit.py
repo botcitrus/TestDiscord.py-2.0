@@ -251,6 +251,41 @@ class Faceit(commands.Cog):
             )
             await ctx.send(embed = embed)
 		
+    @commands.command()
+    async def remove(self, ctx, member: discord.User = None, points: int = None):
+        tru = discord.utils.get(self.client.emojis, name='yes')
+        err = discord.utils.get(self.client.emojis, name='no')
+        if member is None:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите пользователя которому хотите отменить points!",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
+        elif points is None:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите points!",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
+        elif points <= 0:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите points больше 0!",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
+        else:
+            point = self.colluser.find_one({'guild_id': ctx.guild.id, "user_id": member.id})["points"] - points
+            self.colluser.update_one({'guild_id': ctx.guild.id, 'user_id': member.id}, {'$set':{'points': point}})
+            embed = discord.Embed(
+                title = f"{tru} Успешно:",
+                description = f"Вы успешно отменили {points} у пользователя, {member}",
+                color = 0x00FFFF
+            )
+            await ctx.send(embed = embed)
+		
         
 async def setup(client):
     await client.add_cog(Faceit(client))
