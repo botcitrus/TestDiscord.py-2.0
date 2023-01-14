@@ -113,24 +113,24 @@ class Faceit(commands.Cog):
                 color = discord.Color.red()
 	    )
             await ctx.send(embed = embed)
-        elif tag2 is None:
-            embed = discord.Embed(
-                title = f"{err} Ошибка:",
-                description = f"Укажите тег первой команды!",
-                color = discord.Color.red()
-	    )
-            await ctx.send(embed = embed)
         elif not self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag1}tag"]:
             embed = discord.Embed(
                 title = f"{err} Ошибка:",
-                description = f"Указанный вами тег1 под данным кодом не найден!",
+                description = f"Указанный вами тег первой команды под данным кодом не найден!",
+                color = discord.Color.red()
+	    )
+            await ctx.send(embed = embed)
+        elif tag2 is None:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите тег второй команды!",
                 color = discord.Color.red()
 	    )
             await ctx.send(embed = embed)
         elif not self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag2}tag"]:
             embed = discord.Embed(
                 title = f"{err} Ошибка:",
-                description = f"Указанный вами тег2 под данным кодом не найден!",
+                description = f"Указанный вами тег второй команды под данным кодом не найден!",
                 color = discord.Color.red()
 	    )
             await ctx.send(embed = embed)
