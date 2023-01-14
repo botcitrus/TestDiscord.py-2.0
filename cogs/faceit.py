@@ -119,7 +119,7 @@ class Faceit(commands.Cog):
             await ctx.send(embed = embed)
 		
     @commands.command()
-    async def profile(self, ctx, member: discord.User):
+    async def profile(self, ctx, member: discord.User = None):
         if member is None:
             member = ctx.author
 	
