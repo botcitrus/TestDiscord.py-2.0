@@ -83,7 +83,7 @@ class Faceit(commands.Cog):
             self.collgame.insert_one(post)
             embed = discord.Embed(
                 title = f"{tru} Успешно:",
-                description = f"**{name1}** vs **{name2}**\n\nТеги команд: {tag1} vs {tag2}\n\nБот готов принимать ставки\n\nКод игры: {code}",
+                description = f"**{name1}** vs **{name2}**\n\nТеги команд: {tag1} vs {tag2}\n\nКод игры: {code}",
                 color = 0x00FFFF
 	    )
             await ctx.send(embed = embed)
@@ -125,8 +125,8 @@ class Faceit(commands.Cog):
             name2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag2}name"]
             tag1 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag1}tag"]
             tag2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag2}tag"]
-            members1 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"members{tag1}"]
-            members2 = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"members{tag2}"]
+            members1 = len(self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"members{tag1}"])
+            members2 = len(self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"members{tag2}"])
             embed = discord.Embed(
                 title = f"{name1} vs {name2}",
                 description = f"Теги команд: {tag1}, {tag2}\nЗа команду {name1}: {members1}\nЗа команду {name2}: {members2}",
