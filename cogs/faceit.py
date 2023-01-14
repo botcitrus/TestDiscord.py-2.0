@@ -194,7 +194,7 @@ class Faceit(commands.Cog):
                 color = discord.Color.red()
             )
             await ctx.send(embed = embed)
-        elif self.colluser.find_one({'guild_id': ctx.guild.id, "user_id": member.id})["points"] < stavka:
+        elif self.colluser.find_one({'guild_id': ctx.guild.id, "user_id": ctx.author.id})["points"] < stavka:
             embed = discord.Embed(
                 title = f"{err} Ошибка:",
                 description = f"На вашем балансе не достаточно points",
