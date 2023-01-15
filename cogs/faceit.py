@@ -203,6 +203,13 @@ class Faceit(commands.Cog):
                 color = discord.Color.red()
             )
             await ctx.send(embed = embed)
+        elif ctx.author.id in self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"members{tag}"]:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Вы уже поставили ставку на эту команду!",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
         else:
             name = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag}name"]
             stavkar = self.colluser.find_one({'guild_id': ctx.guild.id, "user_id": ctx.author.id})["points"] - stavka
