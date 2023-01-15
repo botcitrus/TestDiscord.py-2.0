@@ -210,6 +210,13 @@ class Faceit(commands.Cog):
                 color = discord.Color.red()
             )
             await ctx.send(embed = embed)
+        elif self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"stop"] <= 1:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"К сожалению принятие ставок на эту игру остановлено, ожидаем вас на следующей игре!",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
         else:
             name = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})[f"{tag}name"]
             stavkar = self.colluser.find_one({'guild_id': ctx.guild.id, "user_id": ctx.author.id})["points"] - stavka
@@ -256,6 +263,28 @@ class Faceit(commands.Cog):
             embed = discord.Embed(
                 title = f"{tru} Успешно:",
                 description = f"Вы успешно выдали {points} пользователю, {member}",
+                color = 0x00FFFF
+            )
+            await ctx.send(embed = embed)
+
+    @commands.command()
+    @commands.has_permissions(administrator = True)
+    async def stop(self, ctx, code: int = None, stop: int = None):
+        tru = discord.utils.get(self.client.emojis, name='yes')
+        err = discord.utils.get(self.client.emojis, name='no')
+        if code is None:
+            embed = discord.Embed(
+                title = f"{err} Ошибка:",
+                description = f"Укажите код игры!",
+                color = discord.Color.red()
+            )
+            await ctx.send(embed = embed)
+        else:
+            stoper = self.collgame.find_one({'guild_id': ctx.guild.id, "code": code})["stop"] + stop
+            self.collgame.update_one({'guild_id': ctx.guild.id, 'code': code}, {'$set':{'stop': stoper}})
+            embed = discord.Embed(
+                title = f"{tru} Успешно:",
+                description = f"Вы завершили регистрацию на игру!",
                 color = 0x00FFFF
             )
             await ctx.send(embed = embed)
