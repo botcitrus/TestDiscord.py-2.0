@@ -146,7 +146,7 @@ class Faceit(commands.Cog):
                 "user_id": member.id,
                 "guild_id": ctx.guild.id,
                 "points": 50,
-                "leaguepoints": default,
+                "leaguepoints": default
             }
             self.colluser.insert_one(post)
 		
