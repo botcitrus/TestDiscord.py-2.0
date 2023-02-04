@@ -138,6 +138,11 @@ class Faceit(commands.Cog):
 		
     @commands.command()
     async def profile(self, ctx, member: discord.User = None):
+        if not self.colluser.count_documents({"guild_id": ctx.guild.id, "user_id": member.id}):
+            legueprof = "default"
+        else:
+            legueprof = self.colluser.find_one({'guild_id': ctx.guild.id, "user_id": member.id})["leaguepoints"]
+	
         if member == None:
             member = ctx.author
 	
@@ -146,7 +151,7 @@ class Faceit(commands.Cog):
                 "user_id": member.id,
                 "guild_id": ctx.guild.id,
                 "points": 50,
-                "leaguepoints": str(default)
+                "leaguepoints": legueprof
             }
             self.colluser.insert_one(post)
 		
